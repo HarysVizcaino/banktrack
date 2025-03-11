@@ -1,0 +1,21 @@
+{
+    "welcome": "Welcome!",
+    "description": "A safer way to enjoy.",
+    "register": "Sign Up",
+    "registerNow": "Register Now",
+    "login": "Login",
+    "loginNow": "Log In",
+    "help": "Help",
+    "about": "About",
+    "reset": "Reset",
+    "username": "Username",
+    "confirmPassword": "Confirm Password",
+    "personalAccount": "Personal Account",
+    "businessAccount": "Business Account",
+    "email": "Email",
+    "password": "Password",
+    "forgotPassword": "Forgot Password?",
+    "forgotUsername": "Forgot Username?",
+    "dontHaveAccount": "Don't have an account?"
+  }
+  

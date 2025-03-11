@@ -1,0 +1,21 @@
+{
+    "welcome": "¡Bienvenido!",
+    "description": "Una forma más segura de disfrutar.",
+    "register": "Registrarme",
+    "registerNow": "Regístrate Ahora",
+    "login": "Iniciar Sesión",
+    "loginNow": "Iniciar",
+    "reset": "Reiniciar",
+    "help": "Ayuda",
+    "about": "Acerca de",
+    "personalAccount": "Cuenta Personal",
+    "businessAccount": "Cuenta de Negocios",
+    "email": "Correo Electrónico",
+    "password": "Contraseña",
+    "forgotPassword": "¿Recuper contraseña?",
+    "forgotUsername": "¿Recuperar usuario?",
+    "username": "Nombre de Usuario",
+    "confirmPassword": "Confirmar Contraseña",
+    "dontHaveAccount": "¿No tienes una cuenta?"
+  }
+  
