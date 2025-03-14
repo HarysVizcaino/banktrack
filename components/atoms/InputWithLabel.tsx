@@ -5,11 +5,12 @@ interface InputWithLabelProps {
     label: string;
     placeholder: string;
     value: string;
+    errorMessage?: string;
     inputProps?: TextInputProps;
     onChangeText: (value: string) => void;
 }
 
-export const InputWithLabel = ({ label, placeholder, value, onChangeText, inputProps }: InputWithLabelProps) => {
+export const InputWithLabel = ({ label, placeholder, value, onChangeText, inputProps, errorMessage }: InputWithLabelProps) => {
     return (
         <>
                      <Text style={styles.label}>{label}</Text>
@@ -18,6 +19,7 @@ export const InputWithLabel = ({ label, placeholder, value, onChangeText, inputP
                      placeholder={ placeholder }
                      placeholderTextColor="gray" 
                      value={value} 
+                     errorMessage={errorMessage}
                      onChangeText={onChangeText}
                       />
         </>

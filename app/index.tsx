@@ -1,9 +1,29 @@
 import React from "react";
+import { makeServer } from "../server/mirage";
 import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native";
 import { useTranslation } from "react-i18next";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import LanguageSwitchButton from "@/components/molecules/LanguageSwitcher";
+
+if (process.env.NODE_ENV === "development") {
+  if (!window.mirageServer) {
+    makeServer();
+  }
+
+  if (module.hot) {
+    module.hot.dispose(() => {
+      window.mirageServer?.shutdown(); // ✅ Properly shuts down Mirage on refresh
+      delete window.mirageServer;
+    });
+  }
+}
+
+if (process.env.NODE_ENV === "development") {
+  console.log('RUnning dev');
+  makeServer();
+}
+
 
 
 const LOGO = require("../assets/images/banklogo.png");

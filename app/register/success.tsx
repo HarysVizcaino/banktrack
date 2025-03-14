@@ -1,9 +1,11 @@
 import React, { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 
 const SuccessAccountScreen = () => {
+  const { t } = useTranslation();
   const router = useRouter();
 
   return (
@@ -14,16 +16,16 @@ const SuccessAccountScreen = () => {
       </View>
 
       {/* Success Message */}
-      <Text style={styles.successText}>Account Requested Successfully!</Text>
+      <Text style={styles.successText}>{t('successAccountRequested')}</Text>
 
       {/* Details */}
       <Text style={styles.details}>
-        Your request has been submitted. Our team will review it and get back to you soon.
+        {t('accountRequestMessage')}
       </Text>
 
       {/* Back to Home Button */}
-      <TouchableOpacity style={styles.backButton} onPress={() => router.push("/home")}>
-        <Text style={styles.buttonText}>Back to Home</Text>
+      <TouchableOpacity style={styles.backButton} onPress={() => router.push("/")}>
+        <Text style={styles.buttonText}>{t('backToHome')}</Text>
       </TouchableOpacity>
     </View>
   );

@@ -1,66 +1,97 @@
-import React from "react";
+import React  from "react";
 import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet } from "react-native";
 import { useTranslation } from "react-i18next";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
+import { Formik } from "formik";
+import * as Yup from "yup";
 import LanguageSwitchButton from "@/components/molecules/LanguageSwitcher";
+import { Input } from "@/components/atoms/InputField";
+import Message from "@/components/atoms/Message";
+import { useAuth } from "@/hooks/useAuth";
 
 
 const LOGO = require("../../assets/images/only-logo.png");
 
+const SignInSchema = Yup.object().shape({
+  email: Yup.string().email("Invalid email").required("Required"),
+  password: Yup.string().min(6, "Too short!").required("Required"),
+});
+
 const LoginScreen = () => {
+  const { signIn, loading, isError } = useAuth();
   const { t } = useTranslation();
   const router = useRouter();
 
-  const handleSigin = () => {
-    router.push('/home')
-  }
   return (
-    <View style={styles.container}>
-      {/* Header: Back Button & Language Switch */}
-      <View style={styles.header}>
-        <TouchableOpacity onPress={() => router.back()}>
-          <Ionicons name="chevron-back" size={24} color="white" />
-        </TouchableOpacity>
-        <LanguageSwitchButton />
-      </View>
+    <Formik
+      initialValues={{ email: "", password: "" }}
+      validationSchema={SignInSchema}
+      onSubmit={(values) => {
+        signIn(values.email, values.password);
+      }}
+    >
+      {({ handleChange, handleSubmit, values, errors, resetForm }) => (
+          <View style={styles.container}>
+          {/* Header: Back Button & Language Switch */}
+          <View style={styles.header}>
+            <TouchableOpacity onPress={() => router.back()}>
+              <Ionicons name="chevron-back" size={24} color="white" />
+            </TouchableOpacity>
+            <LanguageSwitchButton />
+          </View>
+    
+          {/* Logo */}
+          <Image source={LOGO} style={styles.logo} />
+    
+          {/* Title */}
+          <Text style={styles.title}>{t('personalAccount')}</Text>
+    
+          {/* Input Fields */}
+          <Input 
+          errorMessage={ errors.email ? t('fieldRequired') : "" }
+          autoCapitalize="none"
+          placeholderTextColor="gray" 
+          placeholder={t('username')} value={values.email} onChangeText={handleChange("email")} />
+          <Input 
+          errorMessage={ errors.password ? t('fieldRequired') : "" }
+          placeholderTextColor="gray" 
+          placeholder={t('password')} 
+          value={values.password} 
+          onChangeText={handleChange("password")}
+            secureTextEntry/>
+          { isError && <Message type="error" message={t('loginFaild')} /> }
+          {/* Buttons */}
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity style={styles.resetButton} onPress={resetForm as any}>
+              <Text style={styles.resetText}>{t('reset')}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.loginButton} onPress={handleSubmit as any}>
+              {
+                  loading ? <Text>{t('loading')}</Text> : <Text style={styles.loginText}>{t('login')}</Text>
 
-      {/* Logo */}
-      <Image source={LOGO} style={styles.logo} />
-
-      {/* Title */}
-      <Text style={styles.title}>{t('personalAccount')}</Text>
-
-      {/* Input Fields */}
-      <TextInput style={styles.input} placeholder={t('username')} placeholderTextColor="gray" />
-      <TextInput style={styles.input} placeholder={t('password')} placeholderTextColor="gray" secureTextEntry />
-
-      {/* Buttons */}
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.resetButton}>
-          <Text style={styles.resetText}>{t('reset')}</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.loginButton} onPress={handleSigin}>
-          <Text style={styles.loginText}>{t('login')}</Text>
-        </TouchableOpacity>
-      </View>
-
-      {/* Register Button */}
-      <TouchableOpacity style={styles.registerButton}>
-        <Text style={styles.registerText}>{t('registerNow')}</Text>
-      </TouchableOpacity>
-
-      {/* Forgot Credentials */}
-      <View style={styles.footer}>
-        <TouchableOpacity>
-          <Text style={styles.footerText}>{t('forgotUsername')}</Text>
-        </TouchableOpacity>
-        <Text style={styles.divider}>|</Text>
-        <TouchableOpacity>
-          <Text style={styles.footerText}>{t('forgotPassword')}</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+              }
+            </TouchableOpacity>
+          </View>
+    
+          {/* Register Button */}
+          <TouchableOpacity style={styles.registerButton} onPress={() => { router.push('/register') }}>
+            <Text style={styles.registerText}>{t('registerNow')}</Text>
+          </TouchableOpacity>
+    
+          {/* Forgot Credentials */}
+          <View style={styles.footer}>
+            <TouchableOpacity>
+              <Text style={styles.footerText}>{t('forgotUsername')}</Text>
+            </TouchableOpacity>
+            <Text style={styles.divider}>|</Text>
+            <TouchableOpacity>
+              <Text style={styles.footerText}>{t('forgotPassword')}</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      )}
+    </Formik>
   );
 };
 
@@ -91,17 +122,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
     marginBottom: 20,
-  },
-  input: {
-    backgroundColor: "#1C1C1E",
-    borderRadius: 10,
-    paddingHorizontal: 10,
-    paddingVertical: 12,
-    color: "white",
-    fontSize: 16,
-    marginBottom: 15,
-    borderWidth: 1,
-    borderColor: "#333",
   },
   buttonContainer: {
     flexDirection: "row",
