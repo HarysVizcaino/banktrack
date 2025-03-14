@@ -34,7 +34,7 @@ const HeaderTemplate = ({ title, children, showBackButton }: HeaderTemplateProps
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f5f5f5",
+    backgroundColor: "#000",
   },
   header: {
     flexDirection: "row",

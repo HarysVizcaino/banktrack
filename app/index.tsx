@@ -1,83 +1,122 @@
-import { View, StyleSheet, Image } from "react-native";
-import "@/locales/i18n";
-import { useRouter } from "expo-router";
+import React from "react";
+import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native";
 import { useTranslation } from "react-i18next";
-import LargeButton from "@/components/atoms/LargeButton";
-import { HeaderText, ParagraphText } from "@/components/atoms/StyledText";
-import HelpButton from "@/components/molecules/HelpButton";
-import LanguageSwitcher from "@/components/molecules/LanguageSwitcher";
+import { Ionicons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
+import LanguageSwitchButton from "@/components/molecules/LanguageSwitcher";
+
 
 const LOGO = require("../assets/images/banklogo.png");
 
-export default function HomeScreen() {
+const WelcomeScreen = () => {
   const { t } = useTranslation();
   const router = useRouter();
 
   return (
     <View style={styles.container}>
-       
+      {/* Header: Language & Help Button */}
       <View style={styles.header}>
-        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', width: '50%' }}>
-        <LanguageSwitcher />
-        </View>
-        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', width: '50%' }}>
-        <HelpButton onPress={() => { console.log('Help!!!') }} />
-        </View>
-        </View>
-      <View style={styles.body}>
-        <View style={styles.logoContainer}>
-          <Image 
-          source={LOGO} 
-          style={styles.logo}
-          />
-        </View>
-        <HeaderText style={{ marginBottom: 10, fontSize: 44, }}>
-        {t("welcome")}
-        </HeaderText>
-        <ParagraphText>{t("description")}</ParagraphText>
+        <LanguageSwitchButton />
+        <TouchableOpacity style={styles.helpButton}>
+          <Ionicons name="help-circle-outline" size={24} color="white" />
+          <Text style={styles.helpText}>{t('help')}</Text>
+        </TouchableOpacity>
       </View>
-      <View>
-        <LargeButton
-          label={t("register")}
-          onPress={() => router.navigate("About")}
-        />
-        <LargeButton
-          label={t("login")}
-          onPress={() => router.navigate("/login")}
-          variant="outline"
-        />
-      </View>
+
+      {/* Logo */}
+      <Image source={LOGO} style={styles.logo} />
+
+      {/* Title & Subtitle */}
+      <Text style={styles.title}>{t('welcome')}</Text>
+      <Text style={styles.subtitle}>{t('description')}</Text>
+
+      {/* Buttons */}
+      <TouchableOpacity style={styles.signUpButton} onPress={() => router.push("/register")}>
+        <Text style={styles.signUpText}>{t('register')}</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.loginButton} onPress={() => router.push("/login")}>
+        <Text style={styles.loginText}>{t('login')}</Text>
+      </TouchableOpacity>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#000",
+    paddingLeft: 20,
+    paddingRight: 20,
+    justifyContent: "center",
   },
   header: {
     flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-around",
-    paddingLeft: 12,
-    paddingRight: 12,
-    height: 70,
+    justifyContent: "space-between",
+    position: "absolute",
+    top: 10,
+    width: "110%",
+    paddingHorizontal: 20,
   },
-  body: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+  flagIcon: {
+    width: 24,
+    height: 16,
   },
-  logoContainer: {
-    width: 200,
-    height: 200,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingRight: 18,
+  helpButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#1C1C1E",
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    borderRadius: 20,
+  },
+  helpText: {
+    color: "white",
+    marginLeft: 5,
   },
   logo: {
-    width: 230,
-    height: 230,
-  }
+    width: 240,
+    height: 240,
+    alignSelf: "center",
+    marginBottom: 20,
+  },
+  title: {
+    color: "white",
+    fontSize: 24,
+    fontWeight: "bold",
+    textAlign: "center",
+    marginBottom: 10,
+  },
+  subtitle: {
+    color: "#aaa",
+    fontSize: 16,
+    textAlign: "center",
+    marginBottom: 30,
+  },
+  signUpButton: {
+    backgroundColor: "#1E88E5",
+    paddingVertical: 15,
+    borderRadius: 10,
+    alignItems: "center",
+    marginBottom: 15,
+  },
+  signUpText: {
+    color: "white",
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+  loginButton: {
+    borderColor: "#1E88E5",
+    borderWidth: 2,
+    paddingVertical: 15,
+    borderRadius: 10,
+    alignItems: "center",
+  },
+  loginText: {
+    color: "#1E88E5",
+    fontSize: 16,
+    fontWeight: "bold",
+  },
 });
+
+export default WelcomeScreen;
