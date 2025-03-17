@@ -12,7 +12,6 @@ export const apiSignIn = async (email: string, password: string): Promise<{
     const response = await api.post<{ user: User, token: string }>(`${API_URL}/login`, { email, password });
     return response.data;
   } catch (error) {
-    console.log(error);
     const axiosError = error as AxiosError<{ error: string }>;
     if (axiosError.response?.data?.error) {
       throw new Error(axiosError.response.data.error);

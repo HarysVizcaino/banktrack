@@ -15,7 +15,6 @@ const TransactionsList = ({ onExpandePressed, accountId }: TransactionsListProps
   const { t } = useTranslation();
   const [loading, setLoading] = useState(true);
   const [transactionsList, setTransactionsList] = useState<Transaction[] | null>(null);
-  console.log({ transactionsList })
   useEffect(() => {
     getTransactionsByAccountId(Number(accountId))
     .then((data) => setTransactionsList(data))

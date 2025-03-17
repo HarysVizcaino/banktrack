@@ -27,7 +27,7 @@ export function useAccounts() {
 
   const getAccountById = async (id: string) => {
     try {
-      const response = await apiGetAccountById(id);
+      const response = await apiGetAccountById(Number(id));
       dispatch(selectAccount(response));
     } catch (err) {
       setError("Account not found");

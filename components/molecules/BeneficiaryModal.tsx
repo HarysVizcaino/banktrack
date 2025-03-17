@@ -1,29 +1,30 @@
 import { Account } from "@/types";
+import { Beneficiary } from "@/types/beneficiary";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { View, Text, TouchableOpacity, Modal, StyleSheet, FlatList } from "react-native";
 
-interface AccountSelectionModalProps {
+interface BeneficiarySelectionModalProps {
   visible: boolean;
-  accounts: Account[];
-  onSelect: (account: Account) => void;
+  beneficiaries: Beneficiary[];
+  onSelect: (beneficiary: Beneficiary) => void;
   onClose: () => void;
 }
 
-const AccountSelectionModal = ({ visible, accounts, onSelect, onClose }: AccountSelectionModalProps) => {
+const BeneficiarySelectionModal = ({ visible, beneficiaries, onSelect, onClose }: BeneficiarySelectionModalProps) => {
   const { t } = useTranslation();
   return (
     <Modal visible={visible} animationType="slide" transparent>
       <View style={styles.overlay}>
         <View style={styles.modalContainer}>
-          <Text style={styles.title}>{ t('selectAnAccount') }</Text>
+          <Text style={styles.title}>SELECT ANYTHING</Text>
           <FlatList
-            data={accounts}
-            keyExtractor={(item) => item.id}
+            data={beneficiaries}
+            keyExtractor={(item) => String(item.id)}
             renderItem={({ item }) => (
               <TouchableOpacity style={styles.accountItem} onPress={() => onSelect(item)}>
-                <Text style={styles.accountName}>{t(item.type)}</Text>
-                <Text style={styles.accountBalance}>{t('balance')}: {item.amount}</Text>
+                <Text style={styles.accountName}>{item.fullName}</Text>
+                <Text style={styles.accountBalance}>{t('account')}: {item.accountNumber}</Text>
               </TouchableOpacity>
             )}
           />
@@ -81,4 +82,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AccountSelectionModal;
+export default BeneficiarySelectionModal;

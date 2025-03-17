@@ -1,14 +1,6 @@
 import { Account, AccountList } from "@/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface Transaction {
-  id: string;
-  amount: number;
-  type: string;
-  description: string;
-  createdAt: string;
-}
-
 interface AccountState {
     accounts: AccountList;
     selectedAccount: Account | null;

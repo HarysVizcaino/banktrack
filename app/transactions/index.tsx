@@ -13,7 +13,6 @@ export default function TransactionsScreen() {
   const router = useRouter();
 
   const handleItemPress = (screen: string) => {
-    console.log(screen);
     router.push('/transactions/transfer' as RelativePathString);
   };
 

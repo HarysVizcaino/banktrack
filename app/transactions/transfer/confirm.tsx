@@ -1,11 +1,29 @@
-import React from "react";
+import React, { useMemo } from "react";
+
 import { View, Text, TouchableOpacity, StyleSheet, Alert } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import { useTranslation } from "react-i18next";
 import { useRouter, useLocalSearchParams } from "expo-router";
+import { Account } from "@/types";
+import { Beneficiary } from "@/types/beneficiary";
+
+
+const getLastFourDigits = (number: number | string): string => {
+  return number.toString().slice(-4);
+};
+
 
 const ConfirmationScreen = () => {
+  const { t } = useTranslation();
   const router = useRouter();
   const { fromAccount, recipient, amount, description } = useLocalSearchParams();
+
+    const formattedAccount: Account | null = useMemo(() => {
+      return fromAccount ? JSON.parse(fromAccount as string) : null;
+    }, [fromAccount]);
+
+    const formattedBeneficiary: Beneficiary | null = useMemo(() => {
+      return recipient ? JSON.parse(recipient as string) : null;
+    }, [recipient]);
 
   const handleConfirm = () => {
     router.push({
@@ -22,27 +40,27 @@ const ConfirmationScreen = () => {
 
       {/* Transaction Details */}
       <View style={styles.detailsContainer}>
-        <Text style={styles.label}>From Account:</Text>
-        <Text style={styles.value}>{fromAccount}</Text>
+        <Text style={styles.label}>{t('fromAccount')}:</Text>
+        <Text style={styles.value}>{`${t(formattedAccount?.type || '')} | ${getLastFourDigits(formattedAccount?.accountNumber || '')}`}</Text>
 
-        <Text style={styles.label}>Recipient:</Text>
-        <Text style={styles.value}>{recipient}</Text>
+        <Text style={styles.label}>{t('recipient')}:</Text>
+        <Text style={styles.value}>{formattedBeneficiary?.fullName}</Text>
 
-        <Text style={styles.label}>Amount:</Text>
+        <Text style={styles.label}>{t('amount')}:</Text>
         <Text style={styles.value}>${amount}</Text>
 
-        <Text style={styles.label}>Description:</Text>
+        <Text style={styles.label}>{t('descriptionTransfer')}:</Text>
         <Text style={styles.value}>{description || "No description provided"}</Text>
       </View>
 
       {/* Buttons */}
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.backButtonConfirm} onPress={() => router.back()}>
-          <Text style={styles.buttonText}>Back</Text>
+          <Text style={styles.buttonText}>{t('back')}</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.confirmButton} onPress={handleConfirm}>
-          <Text style={styles.buttonText}>Confirm</Text>
+          <Text style={styles.buttonText}>{t('confirm')}</Text>
         </TouchableOpacity>
       </View>
     </View>

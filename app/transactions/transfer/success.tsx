@@ -1,15 +1,19 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter, useLocalSearchParams } from "expo-router";
+import { Beneficiary } from "@/types/beneficiary";
 
 const SuccessScreen = () => {
+  const { t } =useTranslation();
   const router = useRouter();
   const { recipient, amount } = useLocalSearchParams();
 
-  useEffect(() => {
-    // You could trigger a success animation here if needed
-  }, []);
+      const formattedBeneficiary: Beneficiary | null = useMemo(() => {
+        return recipient ? JSON.parse(recipient as string) : null;
+      }, [recipient]);
+    
 
   return (
     <View style={styles.container}>
@@ -19,16 +23,16 @@ const SuccessScreen = () => {
       </View>
 
       {/* Success Message */}
-      <Text style={styles.successText}>Transaction Successful!</Text>
+      <Text style={styles.successText}>{t('transactionCompleted')}</Text>
 
       {/* Transaction Details */}
       <Text style={styles.details}>
-        You have successfully sent ${amount} to {recipient}.
+        {t('successfullySent')} ${amount} {t('to')} {formattedBeneficiary?.fullName}.
       </Text>
 
       {/* Back to Home Button */}
       <TouchableOpacity style={styles.backButton} onPress={() => router.push("/home")}>
-        <Text style={styles.buttonText}>Back to Home</Text>
+        <Text style={styles.buttonText}>{t('backToHome')}</Text>
       </TouchableOpacity>
     </View>
   );

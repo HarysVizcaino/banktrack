@@ -7,10 +7,9 @@ import { WidgetsSection } from "@/components/molecules/WidgetsSection";
 import { TransactionsAndCashBack } from "@/components/molecules/TransactionAndCash";
 import AdvertisingCard from "@/components/molecules/AdvertisingCard";
 
-
 export default function HomeScreen() {
   const { accounts, loading } = useAccounts();
-    console.log(accounts);
+
   return (
     <View style={styles.container}>
       <View style={styles.carouseContainer}>

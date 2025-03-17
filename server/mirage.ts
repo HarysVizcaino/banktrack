@@ -1,5 +1,6 @@
 import { belongsTo, createServer, hasMany, Model, Response, Server } from "miragejs";
 import { users } from "./mocks/users";
+import { beneficiaries } from "./mocks/beneficiary";
 import { accounts } from "./mocks/accounts";
 
 declare global {
@@ -22,6 +23,7 @@ export function makeServer() {
       transaction: Model.extend({
         account: belongsTo("account"),
       }),
+      beneficiary: Model,
     },
 
     seeds(server) {
@@ -31,6 +33,8 @@ export function makeServer() {
       users.forEach((user) => {
         server.create("user", user);
       });
+
+      beneficiaries.forEach((beneficiary) => server.create("beneficiary", beneficiary));
 
       accounts.forEach((acc) => {
         const createdAccount = server.create("account", {
@@ -206,6 +210,55 @@ export function makeServer() {
         transaction.destroy();
         return new Response(204);
       });
+
+
+      // ✅ Beneficiaries
+
+      this.get("/beneficiaries", (schema) => {
+        return schema.all("beneficiary");
+      });
+
+      this.get("/beneficiaries/:accountNumber", (schema, request) => {
+        const accountNumber = request.params.accountNumber;
+        const beneficiary = schema.findBy("beneficiary", { accountNumber: Number(accountNumber) });
+
+        if (!beneficiary) {
+          return new Response(404, {}, { error: "Beneficiary not found" });
+        }
+        return beneficiary.attrs;
+      });
+
+      this.post("/beneficiaries", (schema, request) => {
+        const { fullName, accountNumber, accountType } = JSON.parse(request.requestBody);
+
+        // Check if beneficiary already exists
+        const existingBeneficiary = schema.findBy("beneficiary", { accountNumber });
+        if (existingBeneficiary) {
+          return new Response(400, {}, { error: "Beneficiary already exists" });
+        }
+
+        const newBeneficiary = schema.create("beneficiary", {
+          fullName,
+          accountNumber,
+          accountType,
+        });
+
+        return newBeneficiary.attrs;
+      });
+
+
+      this.delete("/beneficiaries/:accountNumber", (schema, request) => {
+        const accountNumber = Number(request.params.accountNumber);
+        const beneficiary = schema.findBy("beneficiary", { accountNumber });
+
+        if (!beneficiary) {
+          return new Response(404, {}, { error: "Beneficiary not found" });
+        }
+
+        beneficiary.destroy();
+        return new Response(200, {}, { message: "Beneficiary deleted successfully" });
+      });
+
     },
   });
 

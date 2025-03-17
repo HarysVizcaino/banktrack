@@ -1,7 +1,7 @@
 import React from "react";
-import { View, Text, StyleSheet, Image, TouchableOpacity, SafeAreaView } from "react-native";
+import { useTranslation } from "react-i18next";
+import { View, Text, StyleSheet, SafeAreaView } from "react-native";
 import { useRouter } from "expo-router";
-import { Ionicons } from "@expo/vector-icons";
 import { Colors } from "@/constants/Colors";
 import CustomHeader from "../molecules/CustomHeader";
 
@@ -13,19 +13,18 @@ interface TransactionsTemplateProps {
 }
 
 
-const PROFILE = require('../../assets/images/profile.jpg');
-
 const TransactionsTemplate = ({
   title = "Home",
   children,
 }: TransactionsTemplateProps) => {
+  const { t } = useTranslation();
   const router = useRouter();
 
   return (
     <SafeAreaView style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
-      <CustomHeader title="Transactions" onCalendarPress={() => alert("Open Calendar")} calendarVisible={false} />
+      <CustomHeader title={t('transactions')} onCalendarPress={() => alert("Open Calendar")} calendarVisible={false} />
       </View>
 
       {/* Page Content */}
