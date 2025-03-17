@@ -25,12 +25,13 @@ export function makeServer() {
     },
 
     seeds(server) {
-      // ✅ Seed users
+      // ✅ Seeds
+
+
       users.forEach((user) => {
         server.create("user", user);
       });
 
-      // ✅ Seed accounts and transactions
       accounts.forEach((acc) => {
         const createdAccount = server.create("account", {
           id: acc.id,
@@ -48,7 +49,7 @@ export function makeServer() {
             type: trx.type,
             description: trx.description,
             createdAt: trx.createdAt,
-            accountId: createdAccount.id, // ✅ Link transaction to account
+            accountId: createdAccount.id,
           });
         });
       });

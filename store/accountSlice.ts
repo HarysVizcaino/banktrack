@@ -38,6 +38,9 @@ interface AccountState {
       selectAccount: (state, action: PayloadAction<Account>) => {
         state.selectedAccount = action.payload;
       },
+      cleanSelectAccount: (state) => {
+        state.selectedAccount = initialState.selectedAccount;
+      },
       updateAccount: (state, action: PayloadAction<{ id: string; amount: number }>) => {
         const account = state.accounts.find((acc) => acc.id === action.payload.id);
         if (account) {
@@ -56,7 +59,8 @@ interface AccountState {
     fetchAccountsFailure, 
     selectAccount, 
     updateAccount, 
-    addAccount 
+    addAccount,
+    cleanSelectAccount 
   } = accountSlice.actions;
   
   export default accountSlice.reducer;

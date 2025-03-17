@@ -1,21 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { View, Text, FlatList, StyleSheet, TouchableOpacity } from "react-native";
 import TransactionItem from "@/components/molecules/TransactionItem";
 import { TransactionType } from "@/constants/transaction-types.enum";
-
-const transactions = [
-  { id: "1", name: "Ben Wayne", description: "Thanks for the dinner!", amount: "+$128.00", time: "1:22PM", type: TransactionType.gas, isIncome: true },
-  { id: "2", name: "Carhartt", description: "Dubai Mall", amount: "$234.00", time: "12:45PM", type: TransactionType.food, isIncome: false },
-  { id: "3", name: "Subscription", description: "Netflix", amount: "$18.00", time: "12:32PM", type: TransactionType.shopping, isIncome: false },
-  { id: "4", name: "Damien Light", description: "You won!", amount: "$20.00", time: "12:22PM", type: TransactionType.transfer, isIncome: false },
-];
+import { getTransactionsByAccountId } from "@/api";
+import { Transaction } from "@/types/transactions";
 
 interface TransactionsListProps {
     onExpandePressed: () => void;
+    accountId: string;
 }
 
-const TransactionsList = ({ onExpandePressed }: TransactionsListProps) => {
-    
+const TransactionsList = ({ onExpandePressed, accountId }: TransactionsListProps) => {
+  const { t } = useTranslation();
+  const [loading, setLoading] = useState(true);
+  const [transactionsList, setTransactionsList] = useState<Transaction[] | null>(null);
+  console.log({ transactionsList })
+  useEffect(() => {
+    getTransactionsByAccountId(Number(accountId))
+    .then((data) => setTransactionsList(data))
+    .catch(() => setTransactionsList([])) 
+    .finally(() => setLoading(false))
+  }, [accountId])
+
   return (
     <View style={[
         styles.container,
@@ -25,24 +32,28 @@ const TransactionsList = ({ onExpandePressed }: TransactionsListProps) => {
             <View  style={styles.expandedButton} />
             </TouchableOpacity>
         </View>
-      <Text style={styles.title}>Transactions</Text>
-      <Text style={styles.today}>TODAY</Text>
+      <Text style={styles.title}>{t('transactions')}</Text>
+      <Text style={styles.today}>{t('today')}</Text>
 
-      <FlatList
-        data={transactions}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <TransactionItem
-            name={item.name}
-            description={item.description}
-            amount={item.amount}
-            time={item.time}
-            type={item.type}
-            isIncome={item.isIncome}
-          />
-        )}
-        showsVerticalScrollIndicator={false}
-      />
+      {
+        transactionsList && (
+          <FlatList
+          data={transactionsList}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <TransactionItem
+              name={item.type}
+              description={item.description}
+              amount={String(item.amount)}
+              time={item.createdAt}
+              type={item.type}
+            />
+          )}
+          showsVerticalScrollIndicator={false}
+        />
+        )
+      }
+
     </View>
   );
 };

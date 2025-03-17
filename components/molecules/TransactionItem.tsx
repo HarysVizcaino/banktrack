@@ -1,20 +1,24 @@
-import { TransactionType } from "@/constants/transaction-types.enum";
+import { TransactionType as constantTransactionType } from "@/constants/transaction-types.enum";
+
+import { TransactionType } from "@/types/transactions";
+import { formatFriendlyDate } from "@/utils/time-formatters";
 import { Ionicons } from "@expo/vector-icons";
 import React from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
 
 interface TransactionTypeIcon {
-  id: TransactionType;
+  id: constantTransactionType;
   name: string;
   icon: keyof typeof Ionicons.glyphMap;
   color: string;
 }
 
 const transactionTypesIcon: TransactionTypeIcon[] = [
-  { id: TransactionType.gas, name: "Gas", icon: "car-outline", color: '#181818'  },
-  { id: TransactionType.food, name: "Food", icon: "fast-food-outline", color: '#268dd7' },
-  { id: TransactionType.shopping, name: "Shopping", icon: "cart-outline", color: '#6f3bf4' },
-  { id: TransactionType.transfer, name: "Transfers", icon: "swap-horizontal-outline", color: '#ff4c53' },
+  { id: constantTransactionType.withdrawal, name: "withdrawal", icon: "arrow-down-circle-outline", color: '#ff4c53'  },
+  { id: constantTransactionType.deposit, name: "deposit", icon: "arrow-up-circle-outline", color: '#5bcb61' },
+  { id: constantTransactionType.shopping, name: "Shopping", icon: "cart-outline", color: '#6f3bf4' },
+  { id: constantTransactionType.internet, name: "Transfers", icon: "swap-horizontal-outline", color: '#ff4c53' },
+  { id: constantTransactionType.gas, name: "Gas", icon: "car-outline", color: '#45c9f5' },
 ];
 
 interface TransactionItemProps {
@@ -27,9 +31,7 @@ interface TransactionItemProps {
 }
 
 const getTransactionTypeIcon = (type: TransactionType) => {
-  console.log(type);
   const icon = transactionTypesIcon.find(icon => icon.id === type)
-  console.log('icon', icon);
   return (
     <View style={{ backgroundColor: icon?.color, borderRadius: 50, padding: 12, marginRight: 15, }}>
       <Ionicons name={icon?.icon || 'swap-horizontal-outline'} size={24} color="#FFF" />
@@ -38,6 +40,8 @@ const getTransactionTypeIcon = (type: TransactionType) => {
 }
 
 const TransactionItem = ({ name, description, amount, time, type, isIncome = false }: TransactionItemProps) => {
+
+  
   return (
     <View style={styles.container}>
 
@@ -52,7 +56,7 @@ const TransactionItem = ({ name, description, amount, time, type, isIncome = fal
       {/* Amount & Time */}
       <View style={styles.rightSection}>
         <Text style={[styles.amount, isIncome ? styles.income : styles.expense]}>{amount}</Text>
-        <Text style={styles.time}>{time}</Text>
+        <Text style={styles.time}>{formatFriendlyDate(time)}</Text>
       </View>
     </View>
   );

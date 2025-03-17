@@ -7,6 +7,8 @@
     "invalidEmail": "Invalid email",
     "fieldRequired": "Field required",
     "tooShort": "Too short!",
+    "today": "Today",
+    "transactions": "Transactions",
     "successAccountRequested": "Account Requested Successfully!",
     "accountRequestMessage": "Your request has been submitted. Our team will review it and get back to you soon.",
     "backToHome": "Back to Home",

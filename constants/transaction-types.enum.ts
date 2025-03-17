@@ -1,6 +1,7 @@
 export enum TransactionType {
-    gas,
-    food, 
-    shopping, 
-    transfer
+    withdrawal = 'withdrawal',
+    deposit = 'deposit',
+    shopping = 'shopping',
+    internet = 'internet',
+    gas = 'gas'
 }

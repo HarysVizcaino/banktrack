@@ -14,6 +14,7 @@ interface GradientCardProps {
   icon?: any;
   style?: ViewStyle;
   maskAccount?: boolean;
+  isLoading?: boolean;
 }
 
 const GradientCard = ({
@@ -22,7 +23,8 @@ const GradientCard = ({
   amount,
   accountNumber = "000000000",
   style,
-  maskAccount = true
+  maskAccount = true,
+  isLoading = false,
 }: GradientCardProps) => {
   return (
     <LinearGradient
