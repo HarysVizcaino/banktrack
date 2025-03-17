@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity, SafeAreaView } from "react-native";
 import { useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { Colors } from "@/constants/Colors";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { loadLanguage } from "@/store/languageSlice";
 
 interface ProfileHeaderTemplateProps {
   title?: string;
@@ -21,6 +23,12 @@ const ProfileHeaderTemplate = ({
   onProfilePress,
 }: ProfileHeaderTemplateProps) => {
   const router = useRouter();
+
+  useEffect(() => {
+    AsyncStorage.getItem("appLanguage").then((lang) => {
+      if (lang) dispatch(loadLanguage(lang));
+    });
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -87,3 +95,7 @@ const styles = StyleSheet.create({
 });
 
 export default ProfileHeaderTemplate;
+function dispatch(arg0: any) {
+  throw new Error("Function not implemented.");
+}
+

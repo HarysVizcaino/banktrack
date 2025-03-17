@@ -139,6 +139,25 @@ export function makeServer() {
           : new Response(404, {}, { error: "No transactions found for this account" });
       });
 
+
+      this.get("/transactions", (schema, request) => {
+        const { type, accountId } = request.queryParams;
+        let transactions = schema.all("transaction").models;
+
+        if (accountId) {
+          transactions = transactions.filter((t) => t.account.id === accountId);
+        }
+
+        if (type) {
+          transactions = transactions.filter((t) => t.type.toLowerCase() === type.toLowerCase());
+        }
+
+        return transactions.length
+          ? transactions
+          : new Response(404, {}, { error: "No transactions found for the selected filter" });
+          
+      });
+
       // ✅ Create a New Account
       this.post("/accounts", (schema, request) => {
         const { amount, state, type, accountNumber } = JSON.parse(request.requestBody);

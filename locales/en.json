@@ -1,5 +1,9 @@
 {
     "welcome": "Welcome!",
+    "all": "All",
+    "deposit": "Deposit",
+    "withdrawal": "Withdrawal",
+    "shopping": "Shopping",
     "accounts": "Accounts",
     "description": "A safer way to enjoy.",
     "allAccounts": "All Accounts",
@@ -75,6 +79,7 @@
     "withdrawOrDeposit": "Withdraw or deposit cash",
     "updateProfile": "Update Profile",
     "tipsAndTraining": "Tips and Training",
-    "allServices": "All services"
+    "allServices": "All services",
+    "filterBy": "Filter by"
   }
   

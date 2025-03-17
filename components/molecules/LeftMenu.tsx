@@ -3,10 +3,15 @@ import { useTranslation } from "react-i18next";
 import { View, Text, TouchableOpacity, StyleSheet, Animated, Dimensions } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
+import LanguageSwitchButton from "./LanguageSwitcher";
 
 const SCREEN_WIDTH = Dimensions.get("window").width;
+interface LeftMenuPro {
+  isOpen: boolean;
+  onClose: () => void;
+}
 
-const LeftMenu = ({ isOpen, onClose }) => {
+const LeftMenu = ({ isOpen, onClose }: LeftMenuPro) => {
   const { t } = useTranslation();
 
   const router = useRouter();
@@ -23,7 +28,8 @@ const LeftMenu = ({ isOpen, onClose }) => {
 
   return (
     <Animated.View style={[styles.menuContainer, { transform: [{ translateX }] }]}>
-        <View style={styles.headerContainer}>
+      <View style={styles.headerContainer}>
+        <LanguageSwitchButton />
         <TouchableOpacity style={styles.closeButton} onPress={onClose}>
         <Ionicons name="close" size={24} color="white" />
       </TouchableOpacity>
@@ -53,6 +59,8 @@ const LeftMenu = ({ isOpen, onClose }) => {
 
 const styles = StyleSheet.create({
   headerContainer: {
+    justifyContent: 'center',
+    alignItems: 'flex-start',
     marginTop: 10,
     width: SCREEN_WIDTH * 0.75,
     backgroundColor: '#1C1C1E',

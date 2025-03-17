@@ -6,6 +6,8 @@ import Carousel from "react-native-reanimated-carousel";
 import GradientCard from "../atoms/GradientCard";
 import { Account, AccountList } from '../../types/accounts';
 import { ROUTES } from '../../constants/routes';
+import { useDispatch } from "react-redux";
+import { selectAccount } from "@/store/accountSlice";
 
 const { width } = Dimensions.get("window");
 
@@ -16,11 +18,13 @@ interface CardCarouselProps {
 
 const CardCarousel = ({ accountList }: CardCarouselProps) => {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
   const isScrolling = useRef(false); 
   const router = useRouter();
 
   const handlePress = (item: Account) => {
     if (!isScrolling.current) {
+      dispatch(selectAccount(item))
       router.push({
         pathname: ROUTES.ACCOUNT_DETAIL as RelativePathString,
         params: { account: JSON.stringify(item) },

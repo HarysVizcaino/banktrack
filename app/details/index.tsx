@@ -1,17 +1,22 @@
 import React, { useEffect, useState, useMemo } from "react";
+import { useTransactions } from "@/hooks/useTransactions";
+import { useDispatch } from "react-redux";
 import { View, StyleSheet, ActivityIndicator } from "react-native";
 import GradientCard from "@/components/atoms/GradientCard";
 import { useTranslation } from "react-i18next";
 import SegmentedControl from "@/components/molecules/SegmentedControl";
 import TransactionsList from "@/components/organisms/TransactionsList";
 import { useLocalSearchParams } from "expo-router";
-import { useAccounts } from "@/hooks/useAccounts";
+
+const TransactionTypeList =  ["all", "deposit", "withdrawal", "shopping"];
 
 import { Account } from "@/types";
 import { getAccountById } from "@/api";
 
 export default function DetailsScreen() {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
+  const { setTransactionFilter } = useTransactions();
   const { account } = useLocalSearchParams(); 
   const [selectedAccount, setSelectedAccount] = useState<Account | null>(null);
   const [loading, setLoading] = useState(true);
@@ -31,8 +36,8 @@ export default function DetailsScreen() {
 
     const [isExpanded, setExpanded] = useState(false);
 
-    const handleSelection = () => {
-      alert('Clicked')
+    const handleSelection = (filter: string, index: number) => {
+      dispatch(setTransactionFilter(TransactionTypeList[index]))
     }
 
     
@@ -60,7 +65,14 @@ export default function DetailsScreen() {
 
         </View>
         <View style={styles.segmentedContainer}>
-        <SegmentedControl options={["Day", "Week", "Month", "Year"]} onSelect={handleSelection} />
+        <SegmentedControl options={
+          [
+            t('all'), 
+            t('deposit'), 
+            t('withdrawal'),
+            t('shopping')
+             ]
+        } onSelect={handleSelection} />
         </View>
     <View style={[ 
       styles.transactionsContainer,
@@ -73,9 +85,10 @@ export default function DetailsScreen() {
           selectedAccount?.id && (
             <TransactionsList 
             accountId={selectedAccount?.id}
-          onExpandePressed={() => {
-              setExpanded(!isExpanded);
-          }} />
+            isExpanded={isExpanded}
+            onExpandePressed={() => {
+                setExpanded(!isExpanded);
+            }} />
           )
         }
 

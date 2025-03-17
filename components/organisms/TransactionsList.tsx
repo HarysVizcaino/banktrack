@@ -1,26 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useDispatch } from "react-redux";
 import { View, Text, FlatList, StyleSheet, TouchableOpacity } from "react-native";
 import TransactionItem from "@/components/molecules/TransactionItem";
-import { TransactionType } from "@/constants/transaction-types.enum";
-import { getTransactionsByAccountId } from "@/api";
-import { Transaction } from "@/types/transactions";
+import SegmentedControl from "../molecules/SegmentedControl";
+import { useTransactions } from "@/hooks/useTransactions";
 
+
+const TransactionTypeList =  ["all", "deposit", "withdrawal", "shopping"];
 interface TransactionsListProps {
     onExpandePressed: () => void;
     accountId: string;
+    isExpanded: boolean;
 }
 
-const TransactionsList = ({ onExpandePressed, accountId }: TransactionsListProps) => {
+const TransactionsList = ({ onExpandePressed, accountId, isExpanded }: TransactionsListProps) => {
   const { t } = useTranslation();
-  const [loading, setLoading] = useState(true);
-  const [transactionsList, setTransactionsList] = useState<Transaction[] | null>(null);
-  useEffect(() => {
-    getTransactionsByAccountId(Number(accountId))
-    .then((data) => setTransactionsList(data))
-    .catch(() => setTransactionsList([])) 
-    .finally(() => setLoading(false))
-  }, [accountId])
+  const dispatch = useDispatch();
+  const { transactions, loading, setTransactionFilter } = useTransactions();
+
+  const handleFilter = (filter: string, index: number) => {
+    dispatch(setTransactionFilter(TransactionTypeList[index]))
+  }
 
   return (
     <View style={[
@@ -31,13 +32,27 @@ const TransactionsList = ({ onExpandePressed, accountId }: TransactionsListProps
             <View  style={styles.expandedButton} />
             </TouchableOpacity>
         </View>
+
+        {isExpanded && (
+          <View style={styles.filterContainer}>
+          <Text style={styles.filterTitle}>{t('filterBy')}: </Text>
+          <SegmentedControl options={[
+            t('all'), 
+            t('deposit'), 
+            t('withdrawal'),
+            t('shopping')
+             ]} onSelect={handleFilter} />
+        </View>
+        )}
+
       <Text style={styles.title}>{t('transactions')}</Text>
       <Text style={styles.today}>{t('today')}</Text>
 
       {
-        transactionsList && (
+        
+        transactions && (
           <FlatList
-          data={transactionsList}
+          data={transactions}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
             <TransactionItem
@@ -97,6 +112,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#474747',
     display: 'flex',
     borderRadius: 8,
+  },
+  filterContainer: {
+    marginBottom: 32,
+  },
+  filterTitle: {
+    color: '#FFF',
+    fontSize: 14,
+    marginBottom: 12,
   }
 });
 

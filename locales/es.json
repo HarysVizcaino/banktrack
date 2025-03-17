@@ -1,5 +1,9 @@
 {
     "welcome": "¡Bienvenido!",
+    "all": "Todas",
+    "deposit": "Depositos",
+    "withdrawal": "Retiros",
+    "shopping": "Compras",
     "accounts": "Cuentas",
     "description": "Una forma más segura de disfrutar.",
     "register": "Registrarme",
@@ -75,6 +79,7 @@
      "withdrawOrDeposit": "Retiro o deposito",
      "updateProfile": "Update Profile",
      "tipsAndTraining": "Entrenamientos",
-     "allServices": "Servicios"
+     "allServices": "Servicios",
+     "filterBy": "Filtrar por"
   }
   

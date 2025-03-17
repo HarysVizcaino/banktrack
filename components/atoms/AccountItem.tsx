@@ -1,21 +1,27 @@
 import { ROUTES } from "@/constants/routes";
+import { selectAccount } from "@/store/accountSlice";
 import { Account } from "@/types";
 import { RelativePathString, useRouter } from "expo-router";
 import { TouchableOpacity, StyleSheet, Text } from "react-native";
+import { useDispatch } from "react-redux";
 
 interface AccountItemProps {
     item: Account
 }
 
 export default function AccountItem({ item }: AccountItemProps) {  
+  const dispatch = useDispatch();
     const router = useRouter();
     
     return (
         <TouchableOpacity
         style={styles.accountCard}
-        onPress={() => router.push({
-             pathname: ROUTES.ACCOUNT_DETAIL as RelativePathString, 
-             params: { account: JSON.stringify(item) } })}
+        onPress={() => {
+          dispatch(selectAccount(item))
+          router.push({
+            pathname: ROUTES.ACCOUNT_DETAIL as RelativePathString, 
+            params: { account: JSON.stringify(item) } })
+        }}
       >
         <Text style={styles.accountType}>{item.type.toUpperCase()}</Text>
         <Text style={styles.accountNumber}>** {item.accountNumber.slice(-4)}</Text>
