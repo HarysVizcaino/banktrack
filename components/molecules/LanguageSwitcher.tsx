@@ -1,15 +1,19 @@
 import React, { useState } from "react";
 import { View, StyleSheet, TouchableOpacity } from "react-native";
-import RNPickerSelect from "react-native-picker-select";
 import CountryFlag from "react-native-country-flag";
 import i18n from "@/locales/i18n";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/store";
+import { setLanguage } from "@/store/languageSlice";
+
+
 const LanguageSwitchButton = () => {
-  const [language, setLanguage] = useState(i18n.language);
+  const dispatch = useDispatch();
+  const language = useSelector((state: RootState) => state.language.language);
 
   const toggleLanguage = () => {
     const newLanguage = language === "en" ? "es" : "en";
-    i18n.changeLanguage(newLanguage);
-    setLanguage(newLanguage);
+    dispatch(setLanguage(newLanguage));
   };
 
   return (

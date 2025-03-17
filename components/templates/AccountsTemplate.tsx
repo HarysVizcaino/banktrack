@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity, SafeAreaView } from "react-native";
 import { useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { Colors } from "@/constants/Colors";
 import CustomHeader from "../molecules/CustomHeader";
+import { useDispatch } from "react-redux";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { loadLanguage } from "@/store/languageSlice";
 
 interface DetailsTemplateProps {
   title?: string;
@@ -18,10 +21,15 @@ const PROFILE = require('../../assets/images/profile.jpg');
 const AccountsTemplate = ({
   title = "Home",
   children,
-  profileImage = PROFILE, // Placeholder image
-  onProfilePress,
 }: DetailsTemplateProps) => {
-  const router = useRouter();
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    AsyncStorage.getItem("appLanguage").then((lang) => {
+      if (lang) dispatch(loadLanguage(lang));
+    });
+  }, []);
+  
 
   return (
     <SafeAreaView style={styles.container}>

@@ -1,10 +1,11 @@
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { useTranslation } from "react-i18next";
 import { Ionicons } from "@expo/vector-icons";
-import { Card } from '../atoms/Card';
 import TrainingCard from '../atoms/TrainingCard';
 
 
 export const WidgetsSection = () => {
+    const { t } = useTranslation();
     return (
         <View style={styles.container}>
             <View style={styles.buttonContainer}>
@@ -16,8 +17,8 @@ export const WidgetsSection = () => {
                 </TouchableOpacity>
             </View>
             <View style={styles.wigetsContainer}>
-            <TrainingCard iconName="school-outline"  title='Tips and Training'/>
-            <TrainingCard  iconName="grid-outline" title='All services'/>
+            <TrainingCard iconName="school-outline"  title={t('tipsAndTraining')}/>
+            <TrainingCard  iconName="grid-outline" title={t('allServices')}/>
             </View>
         </View>
     )

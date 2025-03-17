@@ -1,4 +1,4 @@
-import { Provider } from "react-redux";
+import { Provider, useDispatch } from "react-redux";
 import { store } from "@/store";
 import { Stack } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -6,6 +6,7 @@ import { View, StyleSheet } from "react-native";
 import React from "react";
 
 export default function Layout() {
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <Provider store={store}>

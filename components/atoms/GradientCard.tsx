@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { View, Text, StyleSheet, Image, TouchableOpacity, ViewStyle } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
@@ -26,6 +27,8 @@ const GradientCard = ({
   maskAccount = true,
   isLoading = false,
 }: GradientCardProps) => {
+  const { t } = useTranslation();
+
   return (
     <LinearGradient
       colors={["#1a1a1a", "#424242"]} // Light gradient
@@ -51,7 +54,7 @@ const GradientCard = ({
 
               {/* Card Footer */}
       <View style={styles.cardFooter}>
-        <Text style={styles.accountNumber}>Account {maskAccount ? maskNumber(accountNumber) : accountNumber}</Text>
+        <Text style={styles.accountNumber}>{t('account')} {maskAccount ? maskNumber(accountNumber) : accountNumber}</Text>
         {/* <Text style={styles.lastDigits}>{lastDigits}</Text> */}
         <Ionicons name={getAccountIcon(type)} size={24} color="white" />
       </View>

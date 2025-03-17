@@ -1,5 +1,6 @@
 {
     "welcome": "¡Bienvenido!",
+    "accounts": "Cuentas",
     "description": "Una forma más segura de disfrutar.",
     "register": "Registrarme",
     "allAccounts": "Cuentas",
@@ -71,6 +72,9 @@
      "payServices": "Pagar servicios",
      "payServicesDescription": "Pagos para utilidades, subscripcion, etc.",
      "cash": "Dinero",
-     "withdrawOrDeposit": "Retiro o deposito"
+     "withdrawOrDeposit": "Retiro o deposito",
+     "updateProfile": "Update Profile",
+     "tipsAndTraining": "Entrenamientos",
+     "allServices": "Servicios"
   }
   

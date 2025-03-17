@@ -2,7 +2,6 @@ import React from "react";
 import { View, StyleSheet } from "react-native";
 import { useAccounts } from "@/hooks/useAccounts";
 import CardCarousel from "@/components/molecules/CardCarousel";
-import { TipsAndServices } from "@/components/molecules/TipsAndServices";
 import { WidgetsSection } from "@/components/molecules/WidgetsSection";
 import { TransactionsAndCashBack } from "@/components/molecules/TransactionAndCash";
 import AdvertisingCard from "@/components/molecules/AdvertisingCard";

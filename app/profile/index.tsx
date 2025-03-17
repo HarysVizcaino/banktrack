@@ -35,7 +35,7 @@ const UserProfile = () => {
       
       return (
         <View style={styles.container}>
-          <Text style={styles.title}>Update Profile</Text>
+          <Text style={styles.title}>{t('updateProfile')}</Text>
             <InputWithLabel 
             label={t('fullName')}
             placeholder={t('enterYourName')}
@@ -59,7 +59,7 @@ const UserProfile = () => {
             errorMessage={ formik.errors.fullName ? t('fieldRequired') : "" }
               />  
     
-          <Button title="Update Profile" onPress={formik.handleSubmit as any} />
+          <Button title={t('updateProfile')} onPress={formik.handleSubmit as any} />
         </View>
       );
 }

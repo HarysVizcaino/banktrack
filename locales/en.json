@@ -1,5 +1,6 @@
 {
     "welcome": "Welcome!",
+    "accounts": "Accounts",
     "description": "A safer way to enjoy.",
     "allAccounts": "All Accounts",
     "fullName": "Full Name",
@@ -71,6 +72,9 @@
     "payServices": "Pay services",
     "payServicesDescription": "Pay for utilities, subscriptions, etc.",
     "cash": "Cash",
-    "withdrawOrDeposit": "Withdraw or deposit cash"
+    "withdrawOrDeposit": "Withdraw or deposit cash",
+    "updateProfile": "Update Profile",
+    "tipsAndTraining": "Tips and Training",
+    "allServices": "All services"
   }
   

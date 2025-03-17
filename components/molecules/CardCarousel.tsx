@@ -1,12 +1,10 @@
 import React, { useRef } from "react";
 import { RelativePathString, useRouter } from "expo-router";
-import { Ionicons } from "@expo/vector-icons";
 import { useTranslation } from "react-i18next";
 import { View, StyleSheet, Dimensions, Text, TouchableOpacity } from "react-native";
 import Carousel from "react-native-reanimated-carousel";
 import GradientCard from "../atoms/GradientCard";
 import { Account, AccountList } from '../../types/accounts';
-import { maskNumber } from "@/utils/mask-number";
 import { ROUTES } from '../../constants/routes';
 
 const { width } = Dimensions.get("window");
@@ -34,7 +32,7 @@ const CardCarousel = ({ accountList }: CardCarouselProps) => {
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>
-      <Text style={styles.title}>Accounts</Text>
+      <Text style={styles.title}>{t('accounts')}</Text>
       </View>
       <Carousel
         loop
