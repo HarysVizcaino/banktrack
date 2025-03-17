@@ -27,7 +27,7 @@ if (process.env.NODE_ENV === "development") {
 
 
 
-const LOGO = require("../assets/images/banklogo.png");
+const LOGO = require("@/assets/images/banklogo.png");
 
 const WelcomeScreen = () => {
   const { user, token } = useAuth();

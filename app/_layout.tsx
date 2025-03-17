@@ -24,10 +24,10 @@ export default function Layout() {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: "#000", // Change as needed
+    backgroundColor: "#000",
   },
   container: {
     flex: 1,
-    backgroundColor: "#000", // Change as needed
+    backgroundColor: "#000",
   },
 });

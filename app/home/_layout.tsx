@@ -4,8 +4,12 @@ import { useRouter } from "expo-router";
 import ProfileHeaderTemplate from "@/components/templates/ProfileHeaderTemplate";
 import FloatingMenu from "@/components/molecules/FloatingMenu";
 import { useState } from "react";
+import { useAuth } from "@/hooks/useAuth";
+import useAppInactiveHandler from "@/hooks/useAppInactiveHandler";
 
 export default function Layout() {
+  const { handleSignOut } = useAuth();
+    useAppInactiveHandler(handleSignOut, 300);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const router = useRouter();
     const handleNavigation = (screen: string) => {
