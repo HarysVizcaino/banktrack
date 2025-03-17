@@ -10,7 +10,7 @@ const FloatingMenu = ({ onPress }: FloatingMenuProps) => {
   return (
     <View style={styles.menuContainer}>
       {/* Left Icons */}
-      <TouchableOpacity style={styles.iconButton} onPress={() => onPress("wallet")}>
+      <TouchableOpacity style={styles.iconButton} onPress={() => onPress("accounts")}>
         <Ionicons name="wallet-outline" size={24} color="white" />
       </TouchableOpacity>
       <TouchableOpacity style={styles.iconButton} onPress={() => onPress("stats")}>

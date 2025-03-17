@@ -27,7 +27,7 @@ const SettingsScreen = () => {
 
       {/* Settings Options */}
       <View style={styles.settingsContainer}>
-        <TouchableOpacity style={styles.settingItem}>
+        <TouchableOpacity style={styles.settingItem} onPress={() => { router.push("/profile") }}>
           <Ionicons name="person-outline" size={24} color="white" />
           <Text style={styles.settingText}>{t('account')}</Text>
         </TouchableOpacity>

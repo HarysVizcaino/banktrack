@@ -2,6 +2,7 @@
     "welcome": "¡Bienvenido!",
     "description": "Una forma más segura de disfrutar.",
     "register": "Registrarme",
+    "allAccounts": "Cuentas",
     "fieldRequired": "Campo requerido",
     "invalidEmail": "Correo invalido",
     "tooShort": "Muy debil!",
@@ -65,6 +66,11 @@
      "signOut": "Cerrar sesión",
      "notification": "Notificación",
      "privacyAndSecurity": "Privacidad & Seguridad",
-     "profile": "Perfil"
+     "profile": "Perfil",
+     "transferMoneyToAccount": "Transferir dinero a otra cuenta",
+     "payServices": "Pagar servicios",
+     "payServicesDescription": "Pagos para utilidades, subscripcion, etc.",
+     "cash": "Dinero",
+     "withdrawOrDeposit": "Retiro o deposito"
   }
   

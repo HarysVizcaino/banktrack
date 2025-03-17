@@ -1,6 +1,7 @@
 {
     "welcome": "Welcome!",
     "description": "A safer way to enjoy.",
+    "allAccounts": "All Accounts",
     "fullName": "Full Name",
     "enterYourName": "Enter your name",
     "enterYourEmail": "Enter your email",
@@ -65,6 +66,11 @@
     "signOut": "Sign Out",
     "notification": "Notifications",
     "privacyAndSecurity": "Privacy & Security",
-    "profile": "Profile"
+    "profile": "Profile",
+    "transferMoneyToAccount": "Transfer money to another account",
+    "payServices": "Pay services",
+    "payServicesDescription": "Pay for utilities, subscriptions, etc.",
+    "cash": "Cash",
+    "withdrawOrDeposit": "Withdraw or deposit cash"
   }
   
