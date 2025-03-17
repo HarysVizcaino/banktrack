@@ -1,15 +1,17 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { View, Text, TouchableOpacity, StyleSheet, Alert } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 
 const SettingsScreen = () => {
+  const { t } = useTranslation();
   const router = useRouter();
 
   const handleSignOut = () => {
-    Alert.alert("Sign Out", "Are you sure you want to sign out?", [
+    Alert.alert(t('signOut'), "Are you sure you want to sign out?", [
       { text: "Cancel", style: "cancel" },
-      { text: "Sign Out", onPress: () => router.push("/") },
+      { text: t('signOut'), onPress: () => router.push("/") },
     ]);
   };
 
@@ -19,7 +21,7 @@ const SettingsScreen = () => {
       <View style={styles.header}>
         <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
           <Ionicons name="chevron-back" size={24} color="white" />
-          <Text style={styles.headerText}>Settings</Text>
+          <Text style={styles.headerText}>{t('settings')}</Text>
         </TouchableOpacity>
       </View>
 
@@ -27,24 +29,24 @@ const SettingsScreen = () => {
       <View style={styles.settingsContainer}>
         <TouchableOpacity style={styles.settingItem}>
           <Ionicons name="person-outline" size={24} color="white" />
-          <Text style={styles.settingText}>Account</Text>
+          <Text style={styles.settingText}>{t('account')}</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.settingItem}>
           <Ionicons name="notifications-outline" size={24} color="white" />
-          <Text style={styles.settingText}>Notifications</Text>
+          <Text style={styles.settingText}>{t('notification')}</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.settingItem}>
           <Ionicons name="lock-closed-outline" size={24} color="white" />
-          <Text style={styles.settingText}>Privacy & Security</Text>
+          <Text style={styles.settingText}>{t('privacyAndSecurity')}</Text>
         </TouchableOpacity>
       </View>
 
       {/* Sign Out Button */}
       <TouchableOpacity style={styles.signOutButton} onPress={handleSignOut}>
         <Ionicons name="log-out-outline" size={24} color="white" />
-        <Text style={styles.signOutText}>Sign Out</Text>
+        <Text style={styles.signOutText}>{t('signOut')}</Text>
       </TouchableOpacity>
     </View>
   );

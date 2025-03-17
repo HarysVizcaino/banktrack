@@ -19,7 +19,7 @@ const SuccessScreen = () => {
     <View style={styles.container}>
       {/* Success Icon */}
       <View style={styles.successIcon}>
-        <Ionicons name="checkmark-circle-outline" size={80} color="white" />
+        <Ionicons name="checkmark-circle-outline" size={80} color="#05a863" />
       </View>
 
       {/* Success Message */}

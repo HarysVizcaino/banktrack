@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { View, Text, TouchableOpacity, StyleSheet, Animated, Dimensions } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
@@ -6,6 +7,8 @@ import { useRouter } from "expo-router";
 const SCREEN_WIDTH = Dimensions.get("window").width;
 
 const LeftMenu = ({ isOpen, onClose }) => {
+  const { t } = useTranslation();
+
   const router = useRouter();
   const translateX = new Animated.Value(isOpen ? 0 : -SCREEN_WIDTH);
 
@@ -31,17 +34,17 @@ const LeftMenu = ({ isOpen, onClose }) => {
       {/* Menu Items */}
       <TouchableOpacity style={styles.menuItem} onPress={() => router.push("/home")}>
         <Ionicons name="home-outline" size={24} color="white" />
-        <Text style={styles.menuText}>Home</Text>
+        <Text style={styles.menuText}>{t('home')}</Text>
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.menuItem} onPress={() => router.push("/transactions")}>
         <Ionicons name="swap-horizontal-outline" size={24} color="white" />
-        <Text style={styles.menuText}>Transactions</Text>
+        <Text style={styles.menuText}>{t('transactions')}</Text>
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.menuItem} onPress={() => router.push("/profile")}>
         <Ionicons name="person-outline" size={24} color="white" />
-        <Text style={styles.menuText}>Profile</Text>
+        <Text style={styles.menuText}>{t('profile')}</Text>
       </TouchableOpacity>
      </View>
     </Animated.View>

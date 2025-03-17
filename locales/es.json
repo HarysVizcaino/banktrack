@@ -60,6 +60,11 @@
     "confirm": "Confirm",
     "transactionCompleted": "Transaccion completada!",
     "successfullySent": "Enviado exitosamente",
-    "to": "a"
+    "to": "a",
+    "settings": "Configuración",
+     "signOut": "Cerrar sesión",
+     "notification": "Notificación",
+     "privacyAndSecurity": "Privacidad & Seguridad",
+     "profile": "Perfil"
   }
   
