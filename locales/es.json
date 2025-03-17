@@ -80,6 +80,7 @@
      "updateProfile": "Update Profile",
      "tipsAndTraining": "Entrenamientos",
      "allServices": "Servicios",
-     "filterBy": "Filtrar por"
+     "filterBy": "Filtrar por",
+     "useFaceID": "Iniciar sesion con reconocimiento facial"
   }
   

@@ -52,9 +52,9 @@ export function useAuth() {
     await AsyncStorage.removeItem("auth_token");
     await AsyncStorage.removeItem("user");
     dispatch(signOut());
-    router.replace("/login"); // Redirect to sign-in page
+    router.replace("/");
   };
 
 
-  return { user, token, loading, signUp, isError, signIn, handleSignOut, isAuthSuccess };
+  return { user, token,  loading, signUp, isError, signIn, handleSignOut, isAuthSuccess };
 }

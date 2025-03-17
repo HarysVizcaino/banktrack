@@ -4,6 +4,7 @@ import { Colors } from "@/constants/Colors";
 import CustomHeader from "../molecules/CustomHeader";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { loadLanguage } from "@/store/languageSlice";
+import ProtectedRoute from "../ProtectedRoute";
 
 interface DetailsTemplateProps {
   title?: string;
@@ -24,6 +25,7 @@ const DetailsTemplate = ({
 
   return (
     <SafeAreaView style={styles.container}>
+      <ProtectedRoute>
       {/* Header */}
       <View style={styles.header}>
       <CustomHeader title="Home" onCalendarPress={() => alert("Open Calendar")} />
@@ -31,6 +33,7 @@ const DetailsTemplate = ({
 
       {/* Page Content */}
       <View style={styles.content}>{children}</View>
+      </ProtectedRoute>
     </SafeAreaView>
   );
 };

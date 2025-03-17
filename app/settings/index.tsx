@@ -1,17 +1,22 @@
 import React from "react";
+import { useAuth } from "@/hooks/useAuth";
 import { useTranslation } from "react-i18next";
 import { View, Text, TouchableOpacity, StyleSheet, Alert } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
+import { signOut } from '@/store/authSlice';
 
 const SettingsScreen = () => {
+  const { handleSignOut: authSignOut } = useAuth();
   const { t } = useTranslation();
   const router = useRouter();
 
   const handleSignOut = () => {
     Alert.alert(t('signOut'), "Are you sure you want to sign out?", [
       { text: "Cancel", style: "cancel" },
-      { text: t('signOut'), onPress: () => router.push("/") },
+      { text: t('signOut'), onPress: () => {
+        authSignOut();
+      } },
     ]);
   };
 

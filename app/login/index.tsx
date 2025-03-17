@@ -1,5 +1,6 @@
-import React  from "react";
-import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet } from "react-native";
+import React, { useEffect, useState }  from "react";
+import * as LocalAuthentication from "expo-local-authentication";
+import { View, Text, TouchableOpacity, Image, StyleSheet, Alert } from "react-native";
 import { useTranslation } from "react-i18next";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
@@ -9,6 +10,7 @@ import LanguageSwitchButton from "@/components/molecules/LanguageSwitcher";
 import { Input } from "@/components/atoms/InputField";
 import Message from "@/components/atoms/Message";
 import { useAuth } from "@/hooks/useAuth";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 const LOGO = require("../../assets/images/only-logo.png");
@@ -19,16 +21,49 @@ const SignInSchema = Yup.object().shape({
 });
 
 const LoginScreen = () => {
+  const [isFaceIDAvailable, setIsFaceIDAvailable] = useState(false);
   const { signIn, loading, isError } = useAuth();
   const { t } = useTranslation();
   const router = useRouter();
 
+  useEffect(() => {
+    const checkBiometricSupport = async () => {
+      const compatible = await LocalAuthentication.hasHardwareAsync();
+      const enrolled = await LocalAuthentication.isEnrolledAsync();
+      setIsFaceIDAvailable(compatible && enrolled);
+    };
+
+    checkBiometricSupport();
+  }, []);
+  
+  const handleFaceIDLogin = async () => {
+    const storedEmail = await AsyncStorage.getItem("savedEmail");
+    const storedPassword = await AsyncStorage.getItem("savedPassword");
+
+    if (!storedEmail || !storedPassword) {
+      return Alert.alert(t("faceIDNotSetup"), t("pleaseLoginManuallyFirst"));
+    }
+
+    const result = await LocalAuthentication.authenticateAsync({
+      promptMessage: t("useFaceID"),
+      fallbackLabel: t("enterPassword"),
+    });
+
+    if (result.success) {
+      signIn(storedEmail, storedPassword);
+    } else {
+      Alert.alert(t("error"), t("faceIDFailed"));
+    }
+  };
+  
   return (
     <Formik
       initialValues={{ email: "", password: "" }}
       validationSchema={SignInSchema}
-      onSubmit={(values) => {
+      onSubmit={async (values) => {
         signIn(values.email, values.password);
+        await AsyncStorage.setItem("savedEmail", values.email);
+        await AsyncStorage.setItem("savedPassword", values.password);
       }}
     >
       {({ handleChange, handleSubmit, values, errors, resetForm }) => (
@@ -73,7 +108,13 @@ const LoginScreen = () => {
               }
             </TouchableOpacity>
           </View>
-    
+          {isFaceIDAvailable && (
+            <TouchableOpacity style={styles.faceIDButton} onPress={handleFaceIDLogin}>
+              <Ionicons name="finger-print" size={32} color="white" />
+              <Text style={styles.faceIDText}>{t("useFaceID")}</Text>
+            </TouchableOpacity>
+          )}
+
           {/* Register Button */}
           <TouchableOpacity style={styles.registerButton} onPress={() => { router.push('/register') }}>
             <Text style={styles.registerText}>{t('registerNow')}</Text>
@@ -127,6 +168,18 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     marginBottom: 20,
+  },
+  faceIDButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 20,
+
+    justifyContent: 'center',
+    marginBottom: 46,
+  },
+  faceIDText: {
+    marginLeft: 10,
+    color: "white",
   },
   resetButton: {
     backgroundColor: "#F4B400",

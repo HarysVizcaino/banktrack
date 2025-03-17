@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useAuth } from "@/hooks/useAuth";
 import { makeServer } from "../server/mirage";
-import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, Image, StyleSheet, ActivityIndicator } from "react-native";
 import { useTranslation } from "react-i18next";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
@@ -29,8 +30,15 @@ if (process.env.NODE_ENV === "development") {
 const LOGO = require("../assets/images/banklogo.png");
 
 const WelcomeScreen = () => {
+  const { user, token } = useAuth();
   const { t } = useTranslation();
   const router = useRouter();
+
+  useEffect(() => {
+    if(user && token) {
+      router.push('/home')
+    }
+  }, [])
 
   return (
     <View style={styles.container}>
