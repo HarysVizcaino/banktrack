@@ -2,23 +2,27 @@ import React from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity, ViewStyle } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
+import { maskNumber, getAccountIcon } from '@/utils';
+
 
 interface GradientCardProps {
   title: string;
+  type: string;
   amount: number;
   lastDigits?: string;
   accountNumber?: string;
   icon?: any;
   style?: ViewStyle;
+  maskAccount?: boolean;
 }
 
 const GradientCard = ({
   title,
+  type,
   amount,
-  lastDigits = "**** 1234",
-  accountNumber = "** 5678",
-  icon,
+  accountNumber = "000000000",
   style,
+  maskAccount = true
 }: GradientCardProps) => {
   return (
     <LinearGradient
@@ -45,11 +49,10 @@ const GradientCard = ({
 
               {/* Card Footer */}
       <View style={styles.cardFooter}>
-        <Text style={styles.accountNumber}>Account {accountNumber}</Text>
-        <Text style={styles.lastDigits}>{lastDigits}</Text>
-        {icon && <Image source={icon} style={styles.cardIcon} />}
+        <Text style={styles.accountNumber}>Account {maskAccount ? maskNumber(accountNumber) : accountNumber}</Text>
+        {/* <Text style={styles.lastDigits}>{lastDigits}</Text> */}
+        <Ionicons name={getAccountIcon(type)} size={24} color="white" />
       </View>
-
 
       </View>
 

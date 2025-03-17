@@ -1,0 +1,98 @@
+export const accounts = [
+    {
+      id: "1",
+      amount: 2500,
+      state: "active",
+      type: "checking",
+      accountNumber: '84758374857',
+      createdAt: "2024-03-11T12:00:00.000Z",
+      transactions: [
+        {
+          id: "101",
+          amount: -100,
+          type: "withdrawal",
+          createdAt: "2024-03-11T12:05:00.000Z",
+          description: "ATM Withdrawal",
+        },
+        {
+          id: "102",
+          amount: 500,
+          type: "deposit",
+          createdAt: "2024-03-11T12:10:00.000Z",
+          description: "Bank Transfer",
+        },
+      ],
+    },
+    {
+      id: "2",
+      amount: 5000,
+      state: "active",
+      type: "savings",
+      accountNumber: '9586948574',
+      createdAt: "2024-03-11T12:15:00.000Z",
+      transactions: [
+        {
+          id: "201",
+          amount: -200,
+          type: "shopping",
+          createdAt: "2024-03-11T12:20:00.000Z",
+          description: "Amazon Purchase",
+        },
+        {
+          id: "202",
+          amount: 1000,
+          type: "salary",
+          createdAt: "2024-03-11T12:30:00.000Z",
+          description: "Monthly Salary",
+        },
+      ],
+    },
+    {
+      id: "3",
+      amount: 15000,
+      state: "active",
+      type: "independentAccount",
+      accountNumber: '9586948574',
+      createdAt: "2024-03-11T12:15:00.000Z",
+      transactions: [
+        {
+          id: "201",
+          amount: -200,
+          type: "shopping",
+          createdAt: "2024-03-11T12:20:00.000Z",
+          description: "Amazon Purchase",
+        },
+        {
+          id: "202",
+          amount: 1000,
+          type: "salary",
+          createdAt: "2024-03-11T12:30:00.000Z",
+          description: "Monthly Salary",
+        },
+      ],
+    },
+    {
+      id: "4",
+      amount: 55000,
+      state: "active",
+      type: "payrollAccount",
+      accountNumber: '9586948574',
+      createdAt: "2024-03-11T12:15:00.000Z",
+      transactions: [
+        {
+          id: "201",
+          amount: -200,
+          type: "shopping",
+          createdAt: "2024-03-11T12:20:00.000Z",
+          description: "Amazon Purchase",
+        },
+        {
+          id: "202",
+          amount: 1000,
+          type: "salary",
+          createdAt: "2024-03-11T12:30:00.000Z",
+          description: "Monthly Salary",
+        },
+      ],
+    },
+  ];

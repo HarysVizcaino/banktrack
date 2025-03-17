@@ -4,9 +4,8 @@ import { RootState } from "@/store";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { RelativePathString, useRouter } from "expo-router";
 import { ROUTES } from "@/constants/routes";
+import { apiSignIn, apiSignUp } from "@/api";
 
-const API_URL = "/api/auth/login";
-const REGISTER_API = "/api/auth/register";
 
 export function useAuth() {
   const dispatch = useDispatch();
@@ -16,15 +15,9 @@ export function useAuth() {
   const signIn = async (email: string, password: string) => {
     dispatch(signInStart());
     try {
-      const response = await fetch(API_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
+      const response = await apiSignIn(email, password);
 
-      if (!response.ok) throw new Error("Invalid credentials");
-
-      const { token, user } = await response.json();
+      const { token, user } = response;
       
       await AsyncStorage.setItem("auth_token", token);
       await AsyncStorage.setItem("user", JSON.stringify(user));
@@ -36,6 +29,25 @@ export function useAuth() {
     }
   };
 
+  const signUp = async (
+    fullName: string, 
+    email: string, 
+    password: string, 
+    identification: string, 
+    phoneNumber: string
+  ) => {
+    dispatch(signUpStart());
+    try {
+      await apiSignUp(fullName, email, password, identification, phoneNumber)
+
+      dispatch(signUpSuccess());
+      router.replace(ROUTES.REGISTER_SUCCESS as RelativePathString);
+    } catch (error) {
+      dispatch(signUpFailure());
+    }
+  };
+
+
   const handleSignOut = async () => {
     await AsyncStorage.removeItem("auth_token");
     await AsyncStorage.removeItem("user");
@@ -43,23 +55,6 @@ export function useAuth() {
     router.replace("/login"); // Redirect to sign-in page
   };
 
-  const signUp = async (fullName: string, id: string, phoneNumber: string) => {
-    dispatch(signUpStart());
-    try {
-      const response = await fetch(REGISTER_API, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ fullName, id, phoneNumber }),
-      });
-
-      if (!response.ok) throw new Error("Registration failed");
-      dispatch(signUpSuccess());
-      router.replace(ROUTES.REGISTER_SUCCESS as RelativePathString); // Navigate to home after successful sign-up
-    } catch (error) {
-      dispatch(signUpFailure());
-      console.error("Sign-up failed:", error);
-    }
-  };
 
   return { user, token, loading, signUp, isError, signIn, handleSignOut, isAuthSuccess };
 }

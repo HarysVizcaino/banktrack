@@ -1,11 +1,27 @@
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 const API_URL = "/api";
 
-export const fetchTransactions = async (token: string) => {
-  const response = await fetch(`${API_URL}/transactions`, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-  console.log('===RESPONSE', response);
-  if (!response.ok) throw new Error("Unauthorized");
+// ✅ Create Axios Instance
+const api = axios.create({
+  baseURL: API_URL,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
 
-  return response.json();
-};
+api.interceptors.request.use(
+  async (config) => {
+    const token = await AsyncStorage.getItem("auth_token");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
+export default api;

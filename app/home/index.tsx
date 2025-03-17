@@ -1,6 +1,6 @@
 import React from "react";
-import { View, StyleSheet, Text } from "react-native";
-import AccountCard from "@/components/atoms/AccountCard";
+import { View, StyleSheet } from "react-native";
+import { useAccounts } from "@/hooks/useAccounts";
 import CardCarousel from "@/components/molecules/CardCarousel";
 import { TipsAndServices } from "@/components/molecules/TipsAndServices";
 import { WidgetsSection } from "@/components/molecules/WidgetsSection";
@@ -9,10 +9,12 @@ import AdvertisingCard from "@/components/molecules/AdvertisingCard";
 
 
 export default function HomeScreen() {
+  const { accounts, loading } = useAccounts();
+    console.log(accounts);
   return (
     <View style={styles.container}>
       <View style={styles.carouseContainer}>
-      <CardCarousel />
+      <CardCarousel accountList={accounts} />
       </View>
       <View style={{ width: '100%', marginBottom: 26 }}>
         <TransactionsAndCashBack />

@@ -8,13 +8,25 @@ import { useRouter } from "expo-router";
 import { InputWithLabel } from "@/components/atoms/InputWithLabel";
 import i18n from "@/locales/i18n";
 import { useAuth } from "@/hooks/useAuth";
+import Message from "@/components/atoms/Message";
 
 
 const RegisterSchema = Yup.object().shape({
+  identification: Yup.string().required(i18n.t('fieldRequired')),
+  email: Yup.string().email(i18n.t('invalidEmail')).required(i18n.t('fieldRequired')),
+  password: Yup.string().min(6, i18n.t('tooShort')).required(i18n.t('fieldRequired')),
   fullName: Yup.string().required(i18n.t('fieldRequired')),
-  id: Yup.string().required(i18n.t('fieldRequired')),
   phoneNumber: Yup.string().required(i18n.t('fieldRequired')),
 });
+
+
+const initialState = {
+identification: "",
+fullName: "", 
+phoneNumber: "",
+email: "",
+password: "",
+}
 
 const RegisterScreen = () => {
   const { signUp, loading, isError } = useAuth();
@@ -32,15 +44,20 @@ const RegisterScreen = () => {
         </TouchableOpacity>
       </View>
           <Formik
-            initialValues={{ fullName: "", id: "", phoneNumber: "" }}
+            initialValues={initialState}
             validationSchema={RegisterSchema}
             onSubmit={(values) => {
-              console.log(values);
-              // signIn(values.email, values.password);
-              signUp(values.fullName, values.id, values.phoneNumber)
+              signUp(
+                values.fullName, 
+                values.email, 
+                values.password, 
+                values.identification, 
+                values.phoneNumber
+              )
             }}
           >
             {({ handleChange, handleSubmit, values, errors }) => ( 
+              
                 <>
                       {/* Input Fields */}
                       <InputWithLabel 
@@ -50,16 +67,28 @@ const RegisterScreen = () => {
                       onChangeText={handleChange("fullName")}
                       errorMessage={ errors.fullName ? t('fieldRequired') : "" }
                         />
-
                       <InputWithLabel 
-                              label="ID"
+                        label={t('email')}
+                        placeholder={t('enterYourEmail')}
+                        value={values.email} 
+                        onChangeText={handleChange("email")}
+                        errorMessage={ errors.email ? t('fieldRequired') + ' or ' + t('invalidEmail')  : "" }
+                        inputProps={{
+                          keyboardType: "email-address",
+                          autoCapitalize: "none",
+                          autoCorrect: false,
+                          textContentType: 'emailAddress'
+                        }}
+                        />
+                      <InputWithLabel 
+                              label="Identification"
                               placeholder={t('enterYourId')}
-                              value={values.id} 
-                              onChangeText={handleChange("id")}
+                              value={values.identification} 
+                              onChangeText={handleChange("identification")}
                               inputProps={{
                                   keyboardType: "numeric"
                               }}
-                              errorMessage={ errors.id ? t('fieldRequired') : "" }
+                              errorMessage={ errors.identification ? t('fieldRequired') : "" }
                                 />
 
                             <InputWithLabel 
@@ -72,8 +101,18 @@ const RegisterScreen = () => {
                                     }}
                                     errorMessage={ errors.phoneNumber ? t('fieldRequired') : "" }
                                       />
-
+                            <InputWithLabel 
+                                    label={t('password')}
+                                    placeholder={t('enterYourPassword')}
+                                    value={values.password} 
+                                    onChangeText={handleChange("password")}
+                                    inputProps={{
+                                      secureTextEntry: true
+                                    }}
+                                    errorMessage={ errors.phoneNumber ? t('fieldRequired') : "" }
+                                      />
                             {/* Request Account Button */}
+                            { isError && <Message type="error" message={t('errorCreatingUser')} /> }
                             <TouchableOpacity style={styles.requestButton} onPress={handleSubmit as any}>
                              { loading ? <Text>{t('loading')}</Text> : <Text style={styles.requestText}>{t('requestAndAccount')}</Text> } 
                             </TouchableOpacity>

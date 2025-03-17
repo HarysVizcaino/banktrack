@@ -1,0 +1,62 @@
+import { Account, AccountList } from "@/types";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+
+interface Transaction {
+  id: string;
+  amount: number;
+  type: string;
+  description: string;
+  createdAt: string;
+}
+
+interface AccountState {
+    accounts: AccountList;
+    selectedAccount: Account | null;
+    loading: boolean;
+  }
+
+  const initialState: AccountState = {
+    accounts: [],
+    selectedAccount: null,
+    loading: false,
+  };
+
+  const accountSlice = createSlice({
+    name: "account",
+    initialState,
+    reducers: {
+      fetchAccountsStart: (state) => {
+        state.loading = true;
+      },
+      fetchAccountsSuccess: (state, action: PayloadAction<AccountList>) => {
+        state.accounts = action.payload;
+        state.loading = false;
+      },
+      fetchAccountsFailure: (state) => {
+        state.loading = false;
+      },
+      selectAccount: (state, action: PayloadAction<Account>) => {
+        state.selectedAccount = action.payload;
+      },
+      updateAccount: (state, action: PayloadAction<{ id: string; amount: number }>) => {
+        const account = state.accounts.find((acc) => acc.id === action.payload.id);
+        if (account) {
+          account.amount = action.payload.amount;
+        }
+      },
+      addAccount: (state, action: PayloadAction<Account>) => {
+        state.accounts.push(action.payload);
+      },
+    },
+  });
+
+  export const { 
+    fetchAccountsStart, 
+    fetchAccountsSuccess, 
+    fetchAccountsFailure, 
+    selectAccount, 
+    updateAccount, 
+    addAccount 
+  } = accountSlice.actions;
+  
+  export default accountSlice.reducer;
