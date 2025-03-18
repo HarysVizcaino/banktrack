@@ -9,7 +9,7 @@ import useAppInactiveHandler from "@/hooks/useAppInactiveHandler";
 
 export default function Layout() {
   const { handleSignOut } = useAuth();
-    useAppInactiveHandler(handleSignOut, 300);
+    useAppInactiveHandler(handleSignOut, '5000');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const router = useRouter();
     const handleNavigation = (screen: string) => {

@@ -4,6 +4,9 @@ BanTrack is a mobile banking application built using **React Native** and **Expo
 
 ---
 
+## 🚀 Features Demos
+Gif:
+
 ## 🚀 Features
 - 🔒 **Secure Authentication** (Sign In, Register, FaceID)
 - 📊 **Manage Multiple Accounts** (Checking, Savings, Payroll, Independent)
