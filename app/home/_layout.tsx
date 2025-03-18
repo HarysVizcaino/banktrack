@@ -28,7 +28,7 @@ export default function Layout() {
         }}
       />
       <FloatingMenu onPress={handleNavigation} />
-      <LeftMenu isOpen={isMenuOpen} onClose={() => { setIsMenuOpen(false) }} />
+     { isMenuOpen && <LeftMenu isOpen={isMenuOpen} onClose={() => { setIsMenuOpen(false) }} /> } 
     </ProfileHeaderTemplate>
   );
 }
