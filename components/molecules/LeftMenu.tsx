@@ -20,7 +20,7 @@ const LeftMenu = ({ isOpen, onClose }: LeftMenuPro) => {
   // Animate the menu
   React.useEffect(() => {
     Animated.timing(translateX, {
-      toValue: isOpen ? 0 : -SCREEN_WIDTH + -25,
+      toValue: isOpen ? 0 : -SCREEN_WIDTH + -65,
       duration: 300,
       useNativeDriver: true,
     }).start();
