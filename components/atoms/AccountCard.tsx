@@ -19,7 +19,7 @@ const AccountCard = ({
   style,
 }: CardProps) => {
   return (
-    <View style={[styles.card, { backgroundColor }, style || {}]}>
+    <View testID="account-card" style={[styles.card, { backgroundColor }, style || {}]}>
       {/* Header */}
       <View style={styles.cardHeader}>
         <View>

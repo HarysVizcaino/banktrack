@@ -28,7 +28,7 @@ const BeneficiarySelectionModal = ({ visible, beneficiaries, onSelect, onClose }
               </TouchableOpacity>
             )}
           />
-          <TouchableOpacity style={styles.closeButton} onPress={onClose}>
+          <TouchableOpacity testID="close-button" style={styles.closeButton} onPress={onClose}>
             <Text style={styles.closeText}>{t('close')}</Text>
           </TouchableOpacity>
         </View>

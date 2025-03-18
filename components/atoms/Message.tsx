@@ -14,7 +14,7 @@ const Message: React.FC<MessageProps> = ({ type, message }) => {
   }[type];
 
   return (
-    <View style={[styles.container, { backgroundColor }]}>
+    <View testID="message-container" style={[styles.container, { backgroundColor }]}>
       <Text style={styles.message}>{message}</Text>
     </View>
   );

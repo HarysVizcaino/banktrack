@@ -22,7 +22,7 @@ const AdvertisingCard = ({ title, description, buttonText, imageSource, onPress 
       </View>
 
       {/* Right Section - Image */}
-      <Image source={{ uri: imageSource }} style={styles.image} />
+      <Image testID="advertising-card-image" source={{ uri: imageSource }} style={styles.image} />
     </View>
   );
 };

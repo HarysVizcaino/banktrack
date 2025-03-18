@@ -15,9 +15,10 @@ const START_LOGO_POSITION = 5;
 
 const BrandLogoList = ({ logos }: BrandLogoListProps) => {
   return (
-    <View style={styles.list}>
+    <View testID="brand-logo-list" style={styles.list}>
       {logos.map(({ uri, color }, index) => (
         <View
+          testID="brand-logo-item"
           key={index}
           style={[styles.logoContainer, { left: START_LOGO_POSITION + index * 30, backgroundColor: color }]}
         >

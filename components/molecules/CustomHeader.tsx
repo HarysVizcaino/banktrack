@@ -24,7 +24,7 @@ const currentDate = getCurrentMonthYear();
   return (
     <View style={styles.header}>
       {/* Back Button */}
-      <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
+      <TouchableOpacity testID="back-button" style={styles.backButton} onPress={() => router.back()}>
         <Ionicons name="chevron-back" size={18} color="white" />
         <Text style={styles.title}>{title}</Text>
       </TouchableOpacity>
@@ -32,7 +32,7 @@ const currentDate = getCurrentMonthYear();
       {/* Calendar Button */}
       {
         calendarVisible && (
-          <TouchableOpacity style={styles.calendarContainer} onPress={onCalendarPress}>
+          <TouchableOpacity testID="calendar-button" style={styles.calendarContainer} onPress={onCalendarPress}>
           <Ionicons name="calendar-outline" size={24} color="white" />
           <Text style={styles.dateText}>{date || currentDate}</Text>
         </TouchableOpacity>

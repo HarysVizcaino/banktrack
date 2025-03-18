@@ -9,7 +9,7 @@ interface CardWithTitleProps {
 
 const CardWithTitle = ({ title, subTitle, children }: CardWithTitleProps) => {
   return (
-    <View style={styles.card}>
+    <View testID="card-container" style={styles.card}>
         <View style={styles.titleContainer}>
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.subTitle}>{subTitle}</Text>

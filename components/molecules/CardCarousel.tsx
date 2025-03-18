@@ -36,7 +36,7 @@ const CardCarousel = ({ accountList }: CardCarouselProps) => {
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>
-      <Text style={styles.title}>{t('accounts')}</Text>
+      <Text testID="carousel-title" style={styles.title}>{t('accounts')}</Text>
       </View>
       <Carousel
         loop
@@ -47,7 +47,7 @@ const CardCarousel = ({ accountList }: CardCarouselProps) => {
         onScrollEnd={() => (isScrolling.current = false)}
         scrollAnimationDuration={800}
         renderItem={({ item }) => (
-          <TouchableOpacity activeOpacity={0.8} onPress={() => handlePress(item)}>
+          <TouchableOpacity testID={`account-${item.id}`} activeOpacity={0.8} onPress={() => handlePress(item)}>
           <View style={styles.cardContainer}>
             <GradientCard 
               title={t(item.type)} 

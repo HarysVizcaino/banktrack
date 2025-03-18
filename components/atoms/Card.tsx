@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, ViewStyle } from "react-native";
+import { View, StyleSheet } from "react-native";
 
 interface CardProps {
   children: React.ReactNode;
@@ -7,7 +7,7 @@ interface CardProps {
 }
 
 export const Card = ({ children, size = "medium" }: CardProps) => {
-  return <View style={[styles.container, styles[size]]}>{children}</View>;
+  return <View testID="card-container" style={[styles.container, styles[size]]}>{children}</View>;
 };
 
 const styles = StyleSheet.create({

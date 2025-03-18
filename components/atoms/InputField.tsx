@@ -10,12 +10,12 @@ export interface InputProps extends TextInputProps {
   
   export const Input = ({ value, onChangeText,  errorMessage, ...props }: InputProps) => {
     return (
-      <View style={styles.container}>
+      <View testID="input-field" style={styles.container}>
       <TextInput
         style={styles.input}
         value={value}
         onChangeText={onChangeText}
-        {...props} // Pass all native props
+        {...props}
       />
      { errorMessage && <Text style={styles.error}>{errorMessage}</Text> }
       </View>
