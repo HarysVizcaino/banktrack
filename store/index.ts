@@ -23,6 +23,12 @@ export const store = configureStore({
     language: persistedLanguageReducer,
     transactions: TransactionReducer,
   },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+    serializableCheck: {
+      ignoredActions: ["persist/PERSIST", "persist/REHYDRATE"],
+      ignoredPaths: ["register", "rehydrate"],
+    },
+  })
 });
 
 export const persistor = persistStore(store);
