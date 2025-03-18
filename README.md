@@ -45,7 +45,7 @@ BanTrack/
 ## 📦 Installation
 ### **1️⃣ Clone the repository**
 ```sh
-git clone https://github.com/your-repo/BanTrack.git
+git clone https://github.com/HarysVizcaino/banktrack.git
 cd BanTrack
 ```
 
@@ -54,12 +54,7 @@ cd BanTrack
 yarn install
 ```
 
-### **3️⃣ Start the MirageJS Mock API**
-```sh
-yarn start:mirage
-```
-
-### **4️⃣ Start the Expo development server**
+### **3️⃣ Start the Expo development server**
 ```sh
 yarn start
 ```
