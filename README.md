@@ -1,50 +1,151 @@
-# Welcome to your Expo app 👋
+# BanTrack Mobile Application
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+BanTrack is a mobile banking application built using **React Native** and **Expo Router**. The app allows users to manage their bank accounts, view transactions, transfer money, and much more.
 
-## Get started
+---
 
-1. Install dependencies
+## 🚀 Features
+- 🔒 **Secure Authentication** (Sign In, Register, FaceID)
+- 📊 **Manage Multiple Accounts** (Checking, Savings, Payroll, Independent)
+- 💰 **Transaction History & Filtering**
+- 📅 **Date-Based Reports & Statements**
+- 🎨 **Dark Mode UI**
+- 🌎 **Multi-language Support (English, Spanish)**
+- ⚡ **Redux Toolkit for State Management**
+- 🔄 **Offline Data Handling with Redux Persist**
+- 🛠 **Mock API using MirageJS**
+- 🔍 **Unit & Integration Testing with Jest & React Testing Library**
 
-   ```bash
-   npm install
-   ```
+---
 
-2. Start the app
-
-   ```bash
-    npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
+## 🏗️ Project Structure
+```
+BanTrack/
+│── _test_/                   # Unit & Integration tests
+│── assets/                   # App assets (icons, images, etc.)
+│── components/               # Reusable UI components
+│   ├── atoms/                # Basic UI elements (Button, Input, Card)
+│   ├── molecules/            # Small combined components
+│   ├── organisms/            # Larger sections of UI
+│── constants/                # Static values (routes, colors, etc.)
+│── hooks/                    # Custom React hooks
+│── mocks/                    # MirageJS mock data
+│── navigation/               # Expo Router navigation setup
+│── screens/                  # Application Screens
+│── services/                 # API Services (Axios instance, API calls)
+│── store/                    # Redux store configuration
+│── utils/                    # Utility functions
+│── App.tsx                   # Entry point for the app
+│── babel.config.js            # Babel Configuration
+│── package.json              # Dependencies & Scripts
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+---
 
-## Learn more
+## 📦 Installation
+### **1️⃣ Clone the repository**
+```sh
+git clone https://github.com/your-repo/BanTrack.git
+cd BanTrack
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+### **2️⃣ Install dependencies**
+```sh
+yarn install
+```
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+### **3️⃣ Start the MirageJS Mock API**
+```sh
+yarn start:mirage
+```
 
-## Join the community
+### **4️⃣ Start the Expo development server**
+```sh
+yarn start
+```
 
-Join our community of developers creating universal apps.
+---
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## 🧪 Testing
+Run unit and integration tests:
+```sh
+yarn test
+```
+
+Run tests with coverage:
+```sh
+yarn test --coverage
+```
+
+---
+
+## 🛠️ Tech Stack
+- **React Native** (Expo)
+- **TypeScript**
+- **Expo Router**
+- **Redux Toolkit** (State Management)
+- **AsyncStorage** (Local Storage)
+- **Axios** (API Requests)
+- **MirageJS** (Mock API)
+- **Jest & React Testing Library** (Testing)
+
+---
+
+## 🔐 Authentication Flow
+1. User logs in or registers
+2. JWT token is stored in **AsyncStorage**
+3. API requests include the JWT token in headers
+4. Secure screens require authentication
+5. Session expires after inactivity (handled via Redux Persist & App State Listener)
+
+---
+
+## 📜 Environment Variables
+Create a `.env` file at the root of the project and define the following variables:
+```sh
+API_URL=http://localhost:5000/api
+INACTIVITY_TIMEOUT=300000
+```
+Load environment variables inside your project:
+```ts
+import { API_URL } from '@env';
+```
+
+---
+
+## 🌍 Multi-Language Support
+- English (en)
+- Spanish (es)
+
+To change the language dynamically, use:
+```ts
+i18n.changeLanguage('es');
+```
+
+---
+
+## 🚀 Deployment
+### **Android & iOS Build**
+```sh
+eas build --profile production --platform all
+```
+
+### **Publish to Expo**
+```sh
+yarn expo publish
+```
+
+---
+
+## 📌 Contributing
+1. Fork the repo
+2. Create a new branch (`git checkout -b feature-name`)
+3. Commit your changes (`git commit -m "Add new feature"`)
+4. Push to the branch (`git push origin feature-name`)
+5. Open a Pull Request
+
+---
+
+## 📝 License
+This project is licensed under the **MIT License**.
+
